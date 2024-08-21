@@ -115,7 +115,7 @@ class HyperParameters:
 
     def save_hyperparameters(self, ignore=[]):
         """Save function arguments into class attributes.
-    
+
         Defined in :numref:`sec_utils`"""
         frame = inspect.currentframe().f_back
         _, _, _, local_vars = inspect.getargvalues(frame)
@@ -316,14 +316,14 @@ class Trainer(d2l.HyperParameters):
         """Defined in :numref:`sec_use_gpu`"""
         self.save_hyperparameters()
         self.gpus = [d2l.gpu(i) for i in range(min(num_gpus, d2l.num_gpus()))]
-    
+
 
     def prepare_batch(self, batch):
         """Defined in :numref:`sec_use_gpu`"""
         if self.gpus:
             batch = [d2l.to(a, self.gpus[0]) for a in batch]
         return batch
-    
+
 
     def prepare_model(self, model):
         """Defined in :numref:`sec_use_gpu`"""
@@ -442,7 +442,7 @@ class FashionMNIST(d2l.DataModule):
 
     def text_labels(self, indices):
         """Return text labels.
-    
+
         Defined in :numref:`sec_fashion_mnist`"""
         labels = ['t-shirt', 'trouser', 'pullover', 'dress', 'coat',
                   'sandal', 'shirt', 'sneaker', 'bag', 'ankle boot']
@@ -478,7 +478,7 @@ class Classifier(d2l.Module):
 
     def accuracy(self, Y_hat, Y, averaged=True):
         """Compute the number of correct predictions.
-    
+
         Defined in :numref:`sec_classification`"""
         Y_hat = d2l.reshape(Y_hat, (-1, Y_hat.shape[-1]))
         preds = d2l.astype(d2l.argmax(Y_hat, axis=1), Y.dtype)
@@ -783,7 +783,7 @@ class RNNLMScratch(d2l.Classifier):
         """Defined in :numref:`sec_rnn-scratch`"""
         outputs = [d2l.matmul(H, self.W_hq) + self.b_q for H in rnn_outputs]
         return d2l.stack(outputs, 1)
-    
+
 
     def forward(self, X, state=None):
         """Defined in :numref:`sec_rnn-scratch`"""
@@ -1186,7 +1186,7 @@ class MultiHeadAttention(d2l.Module):
 
     def transpose_qkv(self, X):
         """Transposition for parallel computation of multiple attention heads.
-    
+
         Defined in :numref:`sec_multihead-attention`"""
         # Shape of input X: (batch_size, no. of queries or key-value pairs,
         # num_hiddens). Shape of output X: (batch_size, no. of queries or
@@ -1198,11 +1198,11 @@ class MultiHeadAttention(d2l.Module):
         # Shape of output: (batch_size * num_heads, no. of queries or key-value
         # pairs, num_hiddens / num_heads)
         return X.reshape(-1, X.shape[2], X.shape[3])
-    
+
 
     def transpose_output(self, X):
         """Reverse the operation of transpose_qkv.
-    
+
         Defined in :numref:`sec_multihead-attention`"""
         X = X.reshape(-1, self.num_heads, X.shape[1], X.shape[2])
         X = X.permute(0, 2, 1, 3)
