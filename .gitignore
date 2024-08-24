@@ -2,4 +2,6 @@
 data/*
 *.csv
 *-file
+*-files
 *.pth
+*.params
